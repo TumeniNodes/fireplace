@@ -1,0 +1,1 @@
+01. would like to add formspec for cooking and poss melting snow/ice into water if a bucket of snow or a block of ice is set upon the mini fireplace? (just a rough idea for now) We'll see

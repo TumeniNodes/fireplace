@@ -1,1 +1,4 @@
 01. would like to add formspec for cooking and poss melting snow/ice into water if a bucket of snow or a block of ice is set upon the mini fireplace? (just a rough idea for now) We'll see
+
+02. maybe try to set the largest fireplace so the material changes to the stone-type material you punch it with?
+Want a cobble fireplace? Simply punch the model with a cobble block. Stone? Same method with a block of stone, etc..

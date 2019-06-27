@@ -59,10 +59,17 @@ minetest.register_node("fireplace:fireplace_01", {
 			{-0.5, -0.5, 0, 1.5, 1.5, 0.5},
 		},
 	},
-	
-	on_rightclick = function(pos, node, puncher)
-		local handle = minetest.sound_play("fire_small", {pos = pos, gain = 0.20, max_hear_distance = 10, loop = true})
-		minetest.get_meta(pos):set_int("handle", 0)
+
+	on_rightclick = function(pos, node)
+		local handle = minetest.sound_play("fire_small", {
+			pos = pos,
+			gain = 0.20,
+			max_hear_distance = 10,
+			loop = true
+		})
+
+
+		minetest.get_meta(pos):set_int("handle", handle) -- Save special number given by sound_play()
 		minetest.swap_node(pos, {name = "fireplace:fireplace_01_active", param2 = node.param2})
 	end
 })
@@ -105,14 +112,12 @@ minetest.register_node("fireplace:fireplace_01_active", {
 		},
 	},
 
-	on_rightclick = function(pos, node, puncher)
-	local handle = minetest.get_meta(pos):get_int("handle")
-	minetest.after(1, function()
-		if handle
-		then minetest.sound_stop(handle) minetest.get_meta(pos):get_int("handle", nil)
-		minetest.sound_stop(handle)
-		end
-	end)
+	on_rightclick = function(pos, node)
+		local handle = minetest.get_meta(pos):get_int("handle") --Put special number given by sound_play() in handle var
+
+		minetest.sound_stop(handle) -- Stop sound using special number
+		minetest.get_meta(pos):set_int("handle", 0) -- Special number is no longer needed, remove
+
 		minetest.swap_node(pos, {name = "fireplace:fireplace_01", param2 = node.param2})
 	end,
 	drop = "fireplace:fireplace_01",
@@ -129,9 +134,15 @@ minetest.register_node("fireplace:mini_fireplace_01", {
 	sounds = default.node_sound_wood_defaults(),
 	groups = {cracky=2, stone=1, oddly_breakable_by_hand=3},
 
-	on_rightclick = function(pos, node, puncher)
-		local handle = minetest.sound_play("fire_small", {pos = pos, gain = 0.20, max_hear_distance = 10, loop = true})
-		minetest.get_meta(pos):set_int("handle", 0)
+	on_rightclick = function(pos, node)
+		local handle = minetest.sound_play("fire_small", {
+			pos = pos,
+			gain = 0.20,
+			max_hear_distance = 10,
+			loop = true
+		})
+
+		minetest.get_meta(pos):set_int("handle", handle) -- Save special number given by sound_play()
 		minetest.swap_node(pos, {name = "fireplace:mini_fireplace_01_active", param2 = node.param2})
 	end
 })
@@ -157,15 +168,13 @@ minetest.register_node("fireplace:mini_fireplace_01_active", {
 	legacy_facedir_simple = true,
 	is_ground_content = false,
 	groups = {not_in_creative_inventory = 1},
-	
+
 	on_rightclick = function(pos, node, puncher)
-	local handle = minetest.get_meta(pos):get_int("handle")
-	minetest.after(1, function()
-		if handle
-		then minetest.sound_stop(handle) minetest.get_meta(pos):get_int("handle", 0)
-		minetest.sound_stop(handle)
-		end
-	end)
+		local handle = minetest.get_meta(pos):get_int("handle") --Put special number given by sound_play() in handle var
+
+		minetest.sound_stop(handle) -- Stop sound using special number
+		minetest.get_meta(pos):set_int("handle", 0) -- Special number is no longer needed, remove
+
 		minetest.swap_node(pos, {name = "fireplace:mini_fireplace_01", param2 = node.param2})
 	end
 })
